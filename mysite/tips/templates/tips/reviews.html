@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="css/custom.css" />
+        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">        
+        </script>
+        <script src="{{ MEDIA_URL }}jquery.raty.js" />
+        </script>
+        <!-- User-generated css -->
+        <style>
+        </style>
+        <!-- User-generated js -->
+        <script>            
+            $(document).ready( function(){
+                //initializes the ratings                
+                $('.starratings').raty({ 
+                    path: 'big-img',
+                    size: 48,
+                    halfShow: true});
+
+                $.fn.extend({
+                    sliderLabels: function(left,right) {
+                        var $this = $(this); 
+                        var $sliderdiv= $this.next("div.ui-slider[role='application']");
+                        $sliderdiv
+                        .css({'font-weight': 'normal'}); 
+                        $sliderdiv
+                        .prepend('<span class="ui-slider-inner-label"  style="position: absolute; left:0px; top:25px; bottom: 10px;">'+left+ '</span>')
+                        .append('<span class="ui-slider-inner-label" style="position: absolute; right:0px; top:25px; bottom: 10px;">'+right+ '</span>');         
+                    }
+                }); 
+
+                $('#atmosphere').sliderLabels('1','5');
+                $('#cust_service').sliderLabels('1','5');
+                $('#wait_time').sliderLabels('Very short', 'Very long');
+
+                $('#personality').sliderLabels('1','5');
+                $('#talking').sliderLabels('Too quiet','Too talkative');
+                $('#expertise').sliderLabels('1', '5');
+
+                $('#pricing').sliderLabels('Too expensive','Great deal');
+                $('#look').sliderLabels('Terrible','Amazing');
+                $('#time').sliderLabels('Too slow', 'Too fast');
+
+                $("#map").click(function(e){
+                    alert("here");
+                    var random=Math.floor(Math.random()*10+1);
+                    $("#chosen_salon").html("Changed to salon " + random);
+
+                    //shows the next part
+                    $("#select_attendant").css('visibility', 'visible');
+
+                });
+                $("#select_attendant").click(function(e){                                
+                    //shows the next part
+                    $("#select_service").css('visibility', 'visible');
+                });
+                $("#select_service").click(function(e){                                
+                    //shows the next part
+                    $("#next_button").css('visibility', 'visible');
+                });
+                $("#submitSearch").click(function(e){                                
+                    //shows the next part
+                    $("#sample_results").css('visibility', 'visible');
+                });
+            });   
+               
+
+        </script>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <!-- Home -->
+
+        <div data-role="page" id="reviews">
+
+
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Review A Salon
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">
+                <a id = "show_popup" href="#popup" data-role="button" data-rel="dialog" data-transition="pop">1) Select your salon</a>
+                <div id = "chosen_salon"></div>                
+
+                <div data-role="fieldcontain" id = "select_attendant" style = "visibility:hidden">
+                    <label for="select_attendant">
+                    </label>
+                    <select name="" data-theme="b" data-mini="false">
+                        <option value="select">
+                            2) Select Attendant:
+                        </option>
+                        <option value="james">
+                            James
+                        </option>
+                        <option value="nithin">
+                            Nithin
+                        </option>
+                        <option value="neel">
+                            Neel
+                        </option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain" id = "select_service" style = "visibility:hidden">
+                    <label for="select_service">
+                    </label>
+                    <select name="" data-theme="b" data-mini="false">
+                        <option value="select">
+                            3) Select Service:
+                        </option>
+                        <option value="haircut">
+                            Haircut
+                        </option>
+                        <option value="manicure">
+                            Manicure
+                        </option>
+                        <option value="blowdry">
+                            Blowdry
+                        </option>
+                    </select>
+                </div>
+
+                <a data-role="button" data-theme="a" href="#rate_salon" data-icon="check" data-iconpos="right" style = "visibility:hidden" id = "next_button">
+                    Begin the Review!
+                </a>
+            </div>
+        </div>
+
+        <div data-role="page" id="rate_salon">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Salon
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content"> 
+                <h1>Salon Feedback</h1>
+
+                <h3>Overall: </h3>
+                <div class = "starratings"></div>                        
+
+                <h3>Atmosphere: </h3>
+                <input type="range" name="slider" id="atmosphere" value="0" min="0" max="100"  />
+
+                <h3>Customer Service: </h3>
+                <input type="range" name="slider" id="cust_service" value="0" min="0" max="100"  />
+
+                <h3>Wait Time: </h3>
+                <input type="range" name="slider" id="wait_time" value="0" min="0" max="100"  />
+
+                <a data-role="button" data-theme="a" href="#rate_person" data-icon="arrow-r" data-iconpos="right">
+                    Continue (1/3)
+                </a>
+            </div>
+        </div>
+
+        <div data-role="page" id="rate_person">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Hairdresser
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">   
+                <h1>Hairdresser Feedback</h1>
+             
+                <h3>Overall: </h3>
+                <div class = "starratings"></div>                        
+
+                <h3>Personality: </h3>
+                <input type="range" name="slider" id="personality" value="0" min="0" max="100"  />
+
+                <h3>Talking/Conversation: </h3>
+                <input type="range" name="slider" id="talking" value="0" min="0" max="100"  />
+
+                <h3>Expertise: </h3>
+                <input type="range" name="slider" id="expertise" value="0" min="0" max="100"  />
+
+                <a data-role="button" data-theme="a" href="#rate_service" data-icon="arrow-r" data-iconpos="right">
+                    Continue (2/3)
+                </a>
+            </div>
+        </div>
+
+        <div data-role="page" id="rate_service">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Service
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">  
+                <h1>Service Feedback</h1>
+              
+                <h3>Overall: </h3>
+                <div class = "starratings"></div>                        
+
+                <h3>Pricing: </h3>
+                <input type="range" name="slider" id="pricing" value="0" min="0" max="100"  />
+
+                <h3>How do you look?: </h3>
+                <input type="range" name="slider" id="look" value="0" min="0" max="100"  />
+
+                <h3>Timeliness: </h3>
+                <input type="range" name="slider" id="time" value="0" min="0" max="100"  />
+
+                <a data-role="button" data-theme="a" href="#complete" data-icon="check" data-iconpos="right">
+                    Finalize
+                </a>
+            </div>
+        </div>
+
+        <div data-role="page" id="complete">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Thanks for your feedback!
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">                
+                <h1>Thank you for your feedback!</h1>
+
+                <a data-role="button" data-theme="a" href="#home" data-icon="check" data-iconpos="right">
+                    Return Home
+                </a>
+            </div>
+        </div>
+
+        <div data-role="page" id="search">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Search
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">                
+                <h1>Search for a salon:</h1>
+
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="searchinput1">
+                        </label>
+                        <input name="" id="searchinput1" placeholder="e.g. 'Manicure' or 'Great Clips'"
+                        value="" type="search">
+                    </fieldset>
+                </div>
+                <a id = "submitSearch" data-role="button" href="#search">
+                    Submit Search
+                </a>
+                <div id = "sample_results" style = "visibility:hidden">
+                    <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                        <li data-role="list-divider" role="heading">
+                            Search Results
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                John, Great Clips: 4.5/5 Rating
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                Bob, Hair Cuttery: 3/5 Rating
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                Joe, Hair-R-Us: 4.7/5 Rating
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start of third page: #popup -->
+        <div data-role="page" id="popup">
+
+            <div data-role="header" data-theme="e">
+                <h1>Near You:</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" data-theme="d">    
+                <h2>Choose A Salon</h2>
+                <p><a id = "map" href="#reviews" data-rel="back" data-role="button" data-inline="true">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Cambridge, MA&amp;zoom=14&amp;size=288x200&amp;markers=Cambridge, MA|   21 Dunster St  Cambridge, MA 02138|Harvard University|800 Boylston St Boston|1 Brattle Sq Cambridge, MA 02138&amp;sensor=false" width="288" height="200" > 
+                </a></p> 
+            </div><!-- /content -->
+        </div><!-- /page popup -->
+
+        
+
+    </body>
+</html>
