@@ -5,6 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from mysite import views
+from tips import views as views2
 
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
@@ -19,5 +20,6 @@ urlpatterns = patterns('',
 
     url(r'^tips/', include ('tips.urls')),
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),                  
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^submit/', views2.submit, name = 'submit'),                  
 )

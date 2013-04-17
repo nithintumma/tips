@@ -46,19 +46,7 @@
                         .prepend('<span class="ui-slider-inner-label"  style="position: absolute; left:0px; top:25px; bottom: 10px;">'+left+ '</span>')
                         .append('<span class="ui-slider-inner-label" style="position: absolute; right:0px; top:25px; bottom: 10px;">'+right+ '</span>');         
                     }
-                }); 
-
-                $('#atmosphere').sliderLabels('1','5');
-                $('#cust_service').sliderLabels('1','5');
-                $('#wait_time').sliderLabels('Very short', 'Very long');
-
-                $('#personality').sliderLabels('1','5');
-                $('#talking').sliderLabels('Too quiet','Too talkative');
-                $('#expertise').sliderLabels('1', '5');
-
-                $('#pricing').sliderLabels('Too expensive','Great deal');
-                $('#look').sliderLabels('Terrible','Amazing');
-                $('#time').sliderLabels('Too slow', 'Too fast');
+                });                
 
                 $("#map").click(function(e){
                     alert("hereinmap");
@@ -94,21 +82,49 @@
         </script>
         <script>
             function showsalon(){
+                $("#id_salon").val($("#select_salon").val());
+                $("#id_service").val($("#select_service").val());
+                $("#id_stylist").val($("#select_attendant").val());
+
+                console.log($("#select_salon").val());
                 $("#reviews").hide();
                 $("#rate_salon").show();
             }
 
             function showperson(){
+                $("#id_salon_rating").val($('#salonstar').raty('score'));
+                $("#id_wait_rating").val($("#waittime input[type = 'radio']:checked").val());
+                $("#id_atmosphere_rating").val($("#atmosphere input[type = 'radio']:checked").val());
+                
+
+                console.log($("#atmosphere input[type = 'radio']:checked").val());
+                console.log($('#salonstar').raty('score'));
                 $("#rate_salon").hide();
                 $("#rate_person").show();
             }
 
             function showservice(){
+                $("#id_stylist_rating").val($('#personstar').raty('score'));
+                $("#id_personality_rating").val($("#personality input[type = 'radio']:checked").val());
+                $("#id_talking_rating").val($("#talking input[type = 'radio']:checked").val());
+                $("#id_expertise_rating").val($("#expertise input[type = 'radio']:checked").val());
+
                 $("#rate_person").hide();
                 $("#rate_service").show();
             }
 
             function showfinal(){
+                //gets values of everything and puts them in the form itself                
+                $("#id_service_rating").val($('#servicestar').raty('score'));
+
+                $("#id_price_rating").val($("#pricing input[type = 'radio']:checked").val());
+                $("#id_quality_rating").val($("#howdoyoulook input[type = 'radio']:checked").val());                
+
+                //NOTE: don't have fields for customer service or timeliness (probably don't need)
+
+                alert("new val: " + $("#id_salon").val())
+                alert("new val2: " + $("#id_personality_rating").val())
+
                 $("#rate_service").hide();
                 $("#complete").show();
             }
@@ -143,30 +159,30 @@
                 </div>                
             </div>
             <div data-role="content">
-                <div data-role="fieldcontain" id = "select_salon">
+                <div data-role="fieldcontain">
                     <label for="select_salon">
                     </label>
-                    <select name="" data-theme="b" data-mini="false">
+                    <select name="" data-theme="b" data-mini="false" id = "select_salon">
                         <option value="select">
                             1) Select Salon:
                         </option>
-                        <option value="haircut">
+                        <option value="Great Clips">
                             Great Clips
                         </option>
-                        <option value="manicure">
+                        <option value="La Flamme">
                             La Flamme
                         </option>
-                        <option value="blowdry">
+                        <option value="Hair Cuttery">
                             Hair Cuttery
                         </option>
                     </select>
                 </div>
 
 
-                <div data-role="fieldcontain" id = "select_attendant">
+                <div data-role="fieldcontain">
                     <label for="select_attendant">
                     </label>
-                    <select name="" data-theme="b" data-mini="false">
+                    <select name="" data-theme="b" data-mini="false"  id = "select_attendant">
                         <option value="select">
                             2) Select Attendant:
                         </option>
@@ -181,10 +197,10 @@
                         </option>
                     </select>
                 </div>
-                <div data-role="fieldcontain" id = "select_service">
+                <div data-role="fieldcontain">
                     <label for="select_service">
                     </label>
-                    <select name="" data-theme="b" data-mini="false">
+                    <select name="" data-theme="b" data-mini="false"  id = "select_service">
                         <option value="select">
                             3) Select Service:
                         </option>
@@ -235,29 +251,29 @@
                 <h1>Salon Feedback</h1>
 
                 <h3>Overall: </h3>
-                <div class = "starratings"></div>                        
+                <div class = "starratings" id = "salonstar"></div>                        
                 
                 <div data-role="fieldcontain" id = "atmosphere">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Atmosphere: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Unpleasant</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Pleasant</label>
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
+                            <label for="radio-choice-22">Pleasant</label>
                     </fieldset>
                 </div>
 
                 <div data-role="fieldcontain" id = "customerservice">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Customer Service: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Terrible</label>                            
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
+                            <label for="radio-choice-21">Terrible</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Decent</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Excellent</label>
                     </fieldset>
                 </div>
@@ -265,13 +281,13 @@
                 <div data-role="fieldcontain" id = "waittime">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Wait Time: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Very fast</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Average</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Very slow</label>
                     </fieldset>
                 </div>
@@ -311,43 +327,43 @@
                 <h1>Hairdresser Feedback</h1>
              
                 <h3>Overall: </h3>
-                <div class = "starratings"></div>                        
+                <div class = "starratings"  id = "personstar"></div>                        
 
                 <div data-role="fieldcontain" id = "personality">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Personality: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Unpleasant</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Pleasant</label>
                     </fieldset>
                 </div>
 
-                <div data-role="fieldcontain" id = "customerservice">
+                <div data-role="fieldcontain" id = "talking">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Talking/Conversation: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Too Quiet</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Average</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Too Talkative</label>
                     </fieldset>
                 </div>
 
-                <div data-role="fieldcontain" id = "waittime">
+                <div data-role="fieldcontain" id = "expertise">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Expertise: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Unexperienced</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Average</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Very Experienced</label>
                     </fieldset>
                 </div>
@@ -387,18 +403,18 @@
                 <h1>Service Feedback</h1>
               
                 <h3>Overall: </h3>
-                <div class = "starratings"></div>  
+                <div class = "starratings"  id = "servicestar"></div>  
 
                 <div data-role="fieldcontain" id = "pricing">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Pricing: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Cheap</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Average</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Expensive</label>
                     </fieldset>
                 </div>
@@ -406,13 +422,13 @@
                 <div data-role="fieldcontain" id = "howdoyoulook">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>How do you look? </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Terrible</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Decent</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Excellent</label>
                     </fieldset>
                 </div>
@@ -420,17 +436,43 @@
                 <div data-role="fieldcontain" id = "timeliness">
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Timeliness: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="1" />
                             <label for="radio-choice-21">Very slow</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="2"  />
                             <label for="radio-choice-22">Average</label>
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
+                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="3"  />
                             <label for="radio-choice-23">Very fast</label>
                     </fieldset>
                 </div>                      
 
+
+                <form action="/submit/" method="post" onsubmit = "alert('here submitting'); showfinal()">
+                    {% csrf_token %}
+                    <table style="display:none">
+                        <tr><th><label for="id_stylist">Stylist:</label></th><td><input id="id_stylist" maxlength="200" name="stylist" type="text" /></td></tr>
+                        <tr><th><label for="id_salon">Salon:</label></th><td><input id="id_salon" maxlength="200" name="salon" type="text" /></td></tr>
+                        <tr><th><label for="id_service">Service:</label></th><td><input id="id_service" maxlength="200" name="service" type="text" /></td></tr>
+                        <tr><th><label for="id_salon_rating">Salon rating:</label></th><td><input id="id_salon_rating" name="salon_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_stylist_rating">Stylist rating:</label></th><td><input id="id_stylist_rating" name="stylist_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_atmosphere_rating">Atmosphere rating:</label></th><td><input id="id_atmosphere_rating" name="atmosphere_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_service_rating">Service rating:</label></th><td><input id="id_service_rating" name="service_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_wait_rating">Wait rating:</label></th><td><input id="id_wait_rating" name="wait_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_personality_rating">Personality rating:</label></th><td><input id="id_personality_rating" name="personality_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_talking_rating">Talking rating:</label></th><td><input id="id_talking_rating" name="talking_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_expertise_rating">Expertise rating:</label></th><td><input id="id_expertise_rating" name="expertise_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_price_rating">Price rating:</label></th><td><input id="id_price_rating" name="price_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_quality_rating">Quality rating:</label></th><td><input id="id_quality_rating" name="quality_rating" type="text" /></td></tr>
+                        <tr><th><label for="id_salon_feedback">Salon feedback:</label></th><td><input id="id_salon_feedback" maxlength="2000" name="salon_feedback" type="text" /></td></tr>
+                        <tr><th><label for="id_stylist_feedback">Stylist feedback:</label></th><td><input id="id_stylist_feedback" maxlength="2000" name="stylist_feedback" type="text" /></td></tr>
+                        <tr><th><label for="id_service_feedback">Service feedback:</label></th><td><input id="id_service_feedback" maxlength="2000" name="service_feedback" type="text" /></td></tr>
+                    </table>
+                    <input type="submit" value="Submit" data-role="button" data-theme="a" data-icon="check" data-iconpos="right" />
+
+
+                </a>
+                </form>
 
                 <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showfinal()">
                     Finalize

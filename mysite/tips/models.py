@@ -1,4 +1,7 @@
 from django.db import models
+from django.forms import ModelForm
+
+
 
 # Create your models here.
 #class Salon (models.Model):
@@ -33,7 +36,11 @@ class Reviews(models.Model):
     quality_rating =models.IntegerField()
 
     # text based feedback
-    salon_feedback = models.TextField()
-    stylist_feedback = models.TextField()
-    service_feedback = models.TextField()
+    salon_feedback = models.CharField(max_length = 2000)
+    stylist_feedback = models.CharField(max_length = 2000)
+    service_feedback = models.CharField(max_length = 2000)
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Reviews
 
