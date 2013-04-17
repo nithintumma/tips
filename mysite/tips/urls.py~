@@ -1,0 +1,16 @@
+from django.conf.urls import patterns, url
+
+<<<<<<< HEAD
+from polls import views
+
+urlpatterns = patterns(''. 
+    url(r'^$', views.index, name = 'index')
+)
+=======
+from tips import views
+
+urlpatterns = patterns('',
+    url(r'^$', views.reviews, name='reviews')
+)
+
+>>>>>>> 8085abebd08e03815aba059837e9d73ed418d9e4
