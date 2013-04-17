@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>        
+    <head>
+        {% load staticfiles %}
+
+        <script src="{% static 'tips/jquery.raty.js' %}">
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <title>
-        </title>        
+        </title>
         <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="css/custom.css" />
         <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
-        </script>
-        <script type="text/javascript">
-            $(document).bind("mobileinit", function () {
-                $.mobile.ajaxEnabled = false;
-            });
         </script>
         <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">        
         </script>
-
-        {% load staticfiles %}
-
-        <script src="{% static 'tips/jquery.raty.js' %}">
-        </script>
-
         <!-- User-generated css -->
         <style>
         </style>
@@ -81,43 +75,18 @@
                     //shows the next part
                     $("#sample_results").css('visibility', 'visible');
                 });
-
-                //$('div').hide();  // hide everything that isn't #myDiv
-                $(".hidden").hide();
-                $("#reviews").show();
-
-
-                console.log("end");
             });   
                
 
         </script>
         <script>
-            function showsalon(){
-                $("#reviews").hide();
-                $("#rate_salon").show();
-            }
 
-            function showperson(){
-                $("#rate_salon").hide();
-                $("#rate_person").show();
-            }
-
-            function showservice(){
-                $("#rate_person").hide();
-                $("#rate_service").show();
-            }
-
-            function showfinal(){
-                $("#rate_service").hide();
-                $("#complete").show();
-            }
         </script>
     </head>
     <body>
         <!-- Home -->
 
-        <div id="reviews" class = "hidden">
+        <div data-role="page" id="reviews">
             <div data-theme="a" data-role="header">
                 <h3>
                     Review A Salon
@@ -143,27 +112,10 @@
                 </div>                
             </div>
             <div data-role="content">
-                <div data-role="fieldcontain" id = "select_salon">
-                    <label for="select_salon">
-                    </label>
-                    <select name="" data-theme="b" data-mini="false">
-                        <option value="select">
-                            1) Select Salon:
-                        </option>
-                        <option value="haircut">
-                            Great Clips
-                        </option>
-                        <option value="manicure">
-                            La Flamme
-                        </option>
-                        <option value="blowdry">
-                            Hair Cuttery
-                        </option>
-                    </select>
-                </div>
+                <a id = "show_popup" href="#popup" data-role="button" data-rel="dialog" data-transition="pop">1) Select your salon</a>
+                <div id = "chosen_salon"></div>                
 
-
-                <div data-role="fieldcontain" id = "select_attendant">
+                <div data-role="fieldcontain" id = "select_attendant" style = "visibility:hidden">
                     <label for="select_attendant">
                     </label>
                     <select name="" data-theme="b" data-mini="false">
@@ -181,7 +133,7 @@
                         </option>
                     </select>
                 </div>
-                <div data-role="fieldcontain" id = "select_service">
+                <div data-role="fieldcontain" id = "select_service" style = "visibility:hidden">
                     <label for="select_service">
                     </label>
                     <select name="" data-theme="b" data-mini="false">
@@ -200,13 +152,13 @@
                     </select>
                 </div>
 
-                <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showsalon()">
+                <a data-role="button" data-theme="a" href="#rate_salon" data-icon="check" data-iconpos="right" style = "visibility:hidden" id = "next_button">
                     Begin the Review!
                 </a>
             </div>
         </div>
 
-        <div id="rate_salon" class = "hidden">
+        <div data-role="page" id="rate_salon">
             <div data-theme="a" data-role="header">
                 <h3>
                     Salon
@@ -236,53 +188,23 @@
 
                 <h3>Overall: </h3>
                 <div class = "starratings"></div>                        
-                
-                <div data-role="fieldcontain" id = "atmosphere">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Atmosphere: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Unpleasant</label>                            
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Pleasant</label>
-                    </fieldset>
-                </div>
+                <h3>Atmosphere: </h3>
+                <input type="range" name="slider" id="atmosphere" value="0" min="0" max="100"  />
 
-                <div data-role="fieldcontain" id = "customerservice">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Customer Service: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Terrible</label>                            
+                <h3>Customer Service: </h3>
+                <input type="range" name="slider" id="cust_service" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Decent</label>
+                <h3>Wait Time: </h3>
+                <input type="range" name="slider" id="wait_time" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Excellent</label>
-                    </fieldset>
-                </div>
-
-                <div data-role="fieldcontain" id = "waittime">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Wait Time: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Very fast</label>                            
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Average</label>
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Very slow</label>
-                    </fieldset>
-                </div>
-
-                <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showperson()">
+                <a data-role="button" data-theme="a" href="#rate_person" data-icon="arrow-r" data-iconpos="right">
                     Continue (1/3)
                 </a>
             </div>
         </div>
 
-        <div id="rate_person" class = "hidden">
+        <div data-role="page" id="rate_person">
             <div data-theme="a" data-role="header">
                 <h3>
                     Hairdresser
@@ -313,52 +235,22 @@
                 <h3>Overall: </h3>
                 <div class = "starratings"></div>                        
 
-                <div data-role="fieldcontain" id = "personality">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Personality: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Unpleasant</label>                            
+                <h3>Personality: </h3>
+                <input type="range" name="slider" id="personality" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Pleasant</label>
-                    </fieldset>
-                </div>
+                <h3>Talking/Conversation: </h3>
+                <input type="range" name="slider" id="talking" value="0" min="0" max="100"  />
 
-                <div data-role="fieldcontain" id = "customerservice">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Talking/Conversation: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Too Quiet</label>                            
+                <h3>Expertise: </h3>
+                <input type="range" name="slider" id="expertise" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Average</label>
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Too Talkative</label>
-                    </fieldset>
-                </div>
-
-                <div data-role="fieldcontain" id = "waittime">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Expertise: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Unexperienced</label>                            
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Average</label>
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Very Experienced</label>
-                    </fieldset>
-                </div>
-
-                <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showservice()">                    
+                <a data-role="button" data-theme="a" href="#rate_service" data-icon="arrow-r" data-iconpos="right">
                     Continue (2/3)
                 </a>
             </div>
         </div>
- 
-        <div id="rate_service" class = "hidden">
+
+        <div data-role="page" id="rate_service">
             <div data-theme="a" data-role="header">
                 <h3>
                     Service
@@ -387,58 +279,24 @@
                 <h1>Service Feedback</h1>
               
                 <h3>Overall: </h3>
-                <div class = "starratings"></div>  
+                <div class = "starratings"></div>                        
 
-                <div data-role="fieldcontain" id = "pricing">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Pricing: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Cheap</label>                            
+                <h3>Pricing: </h3>
+                <input type="range" name="slider" id="pricing" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Average</label>
+                <h3>How do you look?: </h3>
+                <input type="range" name="slider" id="look" value="0" min="0" max="100"  />
 
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Expensive</label>
-                    </fieldset>
-                </div>
+                <h3>Timeliness: </h3>
+                <input type="range" name="slider" id="time" value="0" min="0" max="100"  />
 
-                <div data-role="fieldcontain" id = "howdoyoulook">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>How do you look? </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Terrible</label>                            
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Decent</label>
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Excellent</label>
-                    </fieldset>
-                </div>
-
-                <div data-role="fieldcontain" id = "timeliness">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Timeliness: </legend>
-                            <input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" />
-                            <label for="radio-choice-21">Very slow</label>                            
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2"  />
-                            <label for="radio-choice-22">Average</label>
-
-                            <input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3"  />
-                            <label for="radio-choice-23">Very fast</label>
-                    </fieldset>
-                </div>                      
-
-
-                <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showfinal()">
+                <a data-role="button" data-theme="a" href="#complete" data-icon="check" data-iconpos="right">
                     Finalize
                 </a>
             </div>
         </div>
 
-        <div id="complete" class = "hidden">
+        <div data-role="page" id="complete">
             <div data-theme="a" data-role="header">
                 <h3>
                     Thanks for your feedback!
@@ -466,11 +324,92 @@
             <div data-role="content">                
                 <h1>Thank you for your feedback!</h1>
 
-                <a data-role="button" data-theme="a" href="../" data-icon="check" data-iconpos="right">
+                <a data-role="button" data-theme="a" href="#home" data-icon="check" data-iconpos="right">
                     Return Home
                 </a>
             </div>
-        </div>        
+        </div>
+
+        <div data-role="page" id="search">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Search
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">                
+                <h1>Search for a salon:</h1>
+
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="searchinput1">
+                        </label>
+                        <input name="" id="searchinput1" placeholder="e.g. 'Manicure' or 'Great Clips'"
+                        value="" type="search">
+                    </fieldset>
+                </div>
+                <a id = "submitSearch" data-role="button" href="#search">
+                    Submit Search
+                </a>
+                <div id = "sample_results" style = "visibility:hidden">
+                    <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                        <li data-role="list-divider" role="heading">
+                            Search Results
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                John, Great Clips: 4.5/5 Rating
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                Bob, Hair Cuttery: 3/5 Rating
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#" data-transition="slide">
+                                Joe, Hair-R-Us: 4.7/5 Rating
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start of third page: #popup -->
+        <div data-role="page" id="popup">
+
+            <div data-role="header" data-theme="e">
+                <h1>Near You:</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" data-theme="d">    
+                <h2>Choose A Salon</h2>
+                <p><a id = "map" href="#reviews" data-rel="back" data-role="button" data-inline="true">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Cambridge, MA&amp;zoom=14&amp;size=288x200&amp;markers=Cambridge, MA|   21 Dunster St  Cambridge, MA 02138|Harvard University|800 Boylston St Boston|1 Brattle Sq Cambridge, MA 02138&amp;sensor=false" width="288" height="200" > 
+                </a></p> 
+            </div><!-- /content -->
+        </div><!-- /page popup -->
+
+        
 
     </body>
 </html>

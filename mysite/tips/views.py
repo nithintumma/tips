@@ -10,7 +10,7 @@ def reviews(request):
 	return render(request, 'tips/reviews.html', ({}))
 
 def process(request):
-	selected_choice = p.choc
+	selected_choice = p.choice
 
 # type is from the set (salon, service, )
-def show (request, salon_name, type)
+#def show (request, salon_name, type):
