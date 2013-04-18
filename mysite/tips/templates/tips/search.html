@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>        
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">        
+        </script>
+
+        {% load staticfiles %}
+
+        <script src="{% static 'tips/jquery.raty.js' %}">
+        </script>
+
+        <!-- User-generated css -->
+        <style>
+        </style>
+        <!-- User-generated js -->        
+    </head>
+    <body>
+        <!-- Home -->
+
+        <div id="search" class = "hidden">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Search for Salons
+                </h3>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="../" data-rel = "back" data-transition="fade" data-theme="a" data-icon="arrow-l">
+                                Back
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" data-transition="fade" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#home" data-transition="fade" data-theme="" data-icon="refresh" onclick="location.reload(true)">
+                                Refresh
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div data-role="content">   
+                <form action="/search/" method="get">         
+                    <input type="search" name="q" id="search-basic" placeholder = "Search for a salon to find reviews"/> 
+                </form>
+                <div id = "results">
+                    <p>You searched for: <strong>{{ query }}</strong></p>
+
+                    {% if results %}
+                        <p>Found {{ results|length }} result{{ results|pluralize }}.</p>
+                        
+                            {% for result in results %}
+                            
+                                <div data-role="collapsible" data-content-theme="c" style = "word-break:break-all; word-wrap: break-word;">
+                                    <h3>                                        
+                                        {{result.service }}: {{result.stylist }} at {{result.salon}}<i size = small>: {%widthratio result.salon_rating|add:result.service_rating|add:result.stylist_rating 3 1%}/5 </i>
+                                                                              
+                                    </h3>
+                                    <p>
+                                        <ul>
+                                            <li>
+                                                <b>Salon Rating: </b> {{result.salon_rating}}/5
+                                            </li>
+                                            <li>
+                                                <b>Stylist Rating: </b> {{result.stylist_rating}}/5
+                                            </li>                                            
+                                            <li>
+                                                <b>Service Rating: </b> {{result.service_rating}}/5
+                                            </li>
+                                        </ul>
+
+                                    </p>
+                                </div>
+                                
+                            
+                            {% endfor %}
+                        
+                    {% else %}
+                        <p>No results matched your search criteria.</p>
+                    {% endif %}
+                </div>               
+            </div>
+        </div>
+              
+
+    </body>
+</html>
