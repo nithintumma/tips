@@ -30,11 +30,7 @@
         <script>            
             $(document).ready( function(){
                 console.log("here");
-                //initializes the ratings                
-                $('.starratings').raty({ 
-                    path: "{% static 'tips/big-img' %}",
-                    size: 48,
-                    halfShow: true});
+                //initializes the ratings                                
 
                 $.fn.extend({
                     sliderLabels: function(left,right) {
@@ -77,6 +73,11 @@
 
 
                 console.log("end");
+
+                $('.starratings').raty({ 
+                    path: "{% static 'tips/big-img' %}",
+                    size: 48,
+                    halfShow: true});
             });   
                
 
