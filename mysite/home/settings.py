@@ -73,7 +73,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #"/Users/neel 1/Documents/School Work/Harvard/Freshman Year/Spring/CS179/Final Project/Tips/tips/mysite/tips/static/tips",
-    os.path.join(PROJECT_PATH, 'static'),
+    os.path.join(PROJECT_PATH, '/../tips/static'),
 )
 
 # List of finder classes that know how to find static files in
