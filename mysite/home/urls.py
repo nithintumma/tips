@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^submit/', views2.submit, name = 'submit'),                  
     url(r'^search/', views2.search, name = 'search'),  
+    url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )

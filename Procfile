@@ -1,1 +1,2 @@
-web: gunicorn_django -b 0.0.0.0:\$PORT -w 9 -k gevent --max-requests 250 --preload mysite/home/settings.py
+
+web: python mysite/manage.py collectstatic --noinput; bin/gunicorn_django --workers=4 --bind=0.0.0.0:$PORT home/settings.py 
