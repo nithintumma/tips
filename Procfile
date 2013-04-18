@@ -1,2 +1,2 @@
-web: gunicorn mysite/mysite.wsgi
+web: gunicorn mysite.mysite.wsgi
 worker: python mysite/manage.py runserver
