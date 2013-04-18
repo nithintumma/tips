@@ -1,2 +1,2 @@
-web: gunicorn hellodjango.wsgi
+web: gunicorn mysite.wsgi
 worker: python mysite/manage.py runserver
