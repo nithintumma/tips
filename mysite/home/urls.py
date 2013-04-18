@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from mysite import views
+from home import views
 from tips import views as views2
 
 urlpatterns = patterns('',
