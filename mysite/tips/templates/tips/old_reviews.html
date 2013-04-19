@@ -20,6 +20,8 @@
 
         {% load staticfiles %}
 
+        <script src="{% static 'tips/jquery.raty.js' %}">
+        </script>
 
         <!-- User-generated css -->
         <style>
@@ -70,7 +72,14 @@
                 $("#reviews").show();
 
 
-                console.log("end");                               
+                console.log("end");
+
+                $('.starratings').raty({ 
+                    path: "{% static 'tips/big-img' %}",
+                    size: 48,
+                    halfShow: true});
+                });   
+               
 
         </script>
         <script>
@@ -89,7 +98,7 @@
             }
 
             function showperson(){
-                var salon_rating = $("input[name='salon_rating-choice-2']:checked").val();
+                
                 var atmosphere = $("input[name='atmosphere-choice-2']:checked").val();
                 var waittime = $("input[name='waittime-choice-2']:checked").val();
                 
@@ -98,8 +107,9 @@
                 console.log("waittime");
                 console.log(waittime);
                 console.log("score");
+                console.log($('#salonstar').raty('score'));
 
-                $("#id_salon_rating").val(salon_rating);
+                $("#id_salon_rating").val($('#salonstar').raty('score'));
                 $("#id_wait_rating").val(waittime);
                 $("#id_atmosphere_rating").val(atmosphere);
 
@@ -108,7 +118,7 @@
             }
 
             function showservice(){
-                $("#id_stylist_rating").val($("input[name='stylist_rating-choice-2']:checked").val());
+                $("#id_stylist_rating").val($('#personstar').raty('score'));
                 $("#id_personality_rating").val($("input[name='personality-choice-2']:checked").val());
                 $("#id_talking_rating").val($("input[name='talking-choice-2']:checked").val());
                 $("#id_expertise_rating").val($("input[name='expertise-choice-2']:checked").val());
@@ -119,7 +129,7 @@
 
             function showfinal(){
                 //gets values of everything and puts them in the form itself                
-                $("#id_service_rating").val($("input[name='service_rating-choice-2']:checked").val());
+                $("#id_service_rating").val($('#servicestar').raty('score'));
 
                 $("#id_price_rating").val($("input[name='pricing-choice-2']:checked").val());
                 $("#id_quality_rating").val($("input[name='howdoyoulook-choice-2']:checked").val());          
@@ -259,20 +269,9 @@
             </div>
             <div data-role="content"> 
                 <h1>Salon Feedback</h1>
-                
-                <div data-role="fieldcontain" id = "salon_rating" >
-                    <fieldset data-role="controlgroup" data-type="horizontal" id = "salon_rating">
-                        <legend>Overall Salon Experience: </legend>
-                            <input type="radio" name="salon_rating-choice-2" id="salon_rating-choice-21" value="1" />
-                            <label for="salon_rating-choice-21">Low</label>                            
 
-                            <input type="radio" name="salon_rating-choice-2" id="salon_rating-choice-22" value="3"  />
-                            <label for="salon_rating-choice-22">Medium</label>
-
-                            <input type="radio" name="salon_rating-choice-2" id="salon_rating-choice-23" value="5"  />
-                            <label for="salon_rating-choice-23">High</label>
-                    </fieldset>
-                </div>                   
+                <h3>Overall: </h3>
+                <div class = "starratings" id = "salonstar"></div>                        
                 
                 <div data-role="fieldcontain" id = "atmosphere">
                     <fieldset data-role="controlgroup" data-type="horizontal" id = "atmosphere">
@@ -331,21 +330,10 @@
                 </div>                
             </div>
             <div data-role="content">   
-                <h1>Stylist Feedback</h1>
+                <h1>Hairdresser Feedback</h1>
              
-                <div data-role="fieldcontain" id = "stylist_rating" >
-                    <fieldset data-role="controlgroup" data-type="horizontal" id = "stylist_rating">
-                        <legend>Overall Stylist Experience: </legend>
-                            <input type="radio" name="stylist_rating-choice-2" id="stylist_rating-choice-21" value="1" />
-                            <label for="stylist_rating-choice-21">Low</label>                            
-
-                            <input type="radio" name="stylist_rating-choice-2" id="stylist_rating-choice-22" value="3"  />
-                            <label for="stylist_rating-choice-22">Medium</label>
-
-                            <input type="radio" name="stylist_rating-choice-2" id="stylist_rating-choice-23" value="5"  />
-                            <label for="stylist_rating-choice-23">High</label>
-                    </fieldset>
-                </div>                         
+                <h3>Overall: </h3>
+                <div class = "starratings"  id = "personstar"></div>                        
 
                 <div data-role="fieldcontain" >
                     <fieldset data-role="controlgroup" data-type="horizontal" id = "personality">
@@ -420,19 +408,8 @@
             <div data-role="content">  
                 <h1>Service Feedback</h1>
               
-                <div data-role="fieldcontain" id = "service_rating" >
-                    <fieldset data-role="controlgroup" data-type="horizontal" id = "service_rating">
-                        <legend>Overall Service Experience: </legend>
-                            <input type="radio" name="service_rating-choice-2" id="service_rating-choice-21" value="1" />
-                            <label for="service_rating-choice-21">Low</label>                            
-
-                            <input type="radio" name="service_rating-choice-2" id="service_rating-choice-22" value="3"  />
-                            <label for="service_rating-choice-22">Medium</label>
-
-                            <input type="radio" name="service_rating-choice-2" id="service_rating-choice-23" value="5"  />
-                            <label for="service_rating-choice-23">High</label>
-                    </fieldset>
-                </div>     
+                <h3>Overall: </h3>
+                <div class = "starratings"  id = "servicestar"></div>  
 
                 <div data-role="fieldcontain" >
                     <fieldset data-role="controlgroup" data-type="horizontal" id = "pricing">
