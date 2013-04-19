@@ -476,7 +476,7 @@
                 </div>                      
 
 
-                <form action="/submit/" method="post" onsubmit = "alert('here submitting'); showfinal()">
+                <form action="/submit/" method="post" onsubmit = "showfinal()">
                     {% csrf_token %}
                     <table style="display:none">
                         <tr><th><label for="id_stylist">Stylist:</label></th><td><input id="id_stylist" maxlength="200" name="stylist" type="text" /></td></tr>
@@ -500,11 +500,7 @@
 
 
                 </a>
-                </form>
-
-                <a data-role="button" data-theme="a" href="" data-icon="check" data-iconpos="right" id = "next_button" onclick = "showfinal()">
-                    Finalize
-                </a>
+                </form>                
             </div>
         </div>
 
