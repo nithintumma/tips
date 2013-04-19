@@ -72,72 +72,71 @@
 
                 console.log("end");                               
 
-        </script>
-        <script>
-            function showsalon(){
-                $("#id_salon").val($("#select_salon").val());
-                $("#id_service").val($("#select_service").val());
-                $("#id_stylist").val($("#select_attendant").val());
+                function showsalon(){
+                    $("#id_salon").val($("#select_salon").val());
+                    $("#id_service").val($("#select_service").val());
+                    $("#id_stylist").val($("#select_attendant").val());
 
 
-                console.log($("#select_salon").val());
-                console.log($("#select_service").val());
-                console.log($("#select_attendant").val());
+                    console.log($("#select_salon").val());
+                    console.log($("#select_service").val());
+                    console.log($("#select_attendant").val());
 
-                $("#reviews").hide();
-                $("#rate_salon").show();
-            }
+                    $("#reviews").hide();
+                    $("#rate_salon").show();
+                }
 
-            function showperson(){
-                var salon_rating = $("input[name='salon_rating-choice-2']:checked").val();
-                var atmosphere = $("input[name='atmosphere-choice-2']:checked").val();
-                var waittime = $("input[name='waittime-choice-2']:checked").val();
-                
-                console.log("atmosphere");
-                console.log(atmosphere);
-                console.log("waittime");
-                console.log(waittime);
-                console.log("score");
+                function showperson(){
+                    var salon_rating = $("input[name='salon_rating-choice-2']:checked").val();
+                    var atmosphere = $("input[name='atmosphere-choice-2']:checked").val();
+                    var waittime = $("input[name='waittime-choice-2']:checked").val();
+                    
+                    console.log("atmosphere");
+                    console.log(atmosphere);
+                    console.log("waittime");
+                    console.log(waittime);
+                    console.log("score");
 
-                $("#id_salon_rating").val(salon_rating);
-                $("#id_wait_rating").val(waittime);
-                $("#id_atmosphere_rating").val(atmosphere);
+                    $("#id_salon_rating").val(salon_rating);
+                    $("#id_wait_rating").val(waittime);
+                    $("#id_atmosphere_rating").val(atmosphere);
 
-                $("#rate_salon").hide();
-                $("#rate_person").show();
-            }
+                    $("#rate_salon").hide();
+                    $("#rate_person").show();
+                }
 
-            function showservice(){
-                $("#id_stylist_rating").val($("input[name='stylist_rating-choice-2']:checked").val());
-                $("#id_personality_rating").val($("input[name='personality-choice-2']:checked").val());
-                $("#id_talking_rating").val($("input[name='talking-choice-2']:checked").val());
-                $("#id_expertise_rating").val($("input[name='expertise-choice-2']:checked").val());
+                function showservice(){
+                    $("#id_stylist_rating").val($("input[name='stylist_rating-choice-2']:checked").val());
+                    $("#id_personality_rating").val($("input[name='personality-choice-2']:checked").val());
+                    $("#id_talking_rating").val($("input[name='talking-choice-2']:checked").val());
+                    $("#id_expertise_rating").val($("input[name='expertise-choice-2']:checked").val());
 
-                $("#rate_person").hide();
-                $("#rate_service").show();
-            }
+                    $("#rate_person").hide();
+                    $("#rate_service").show();
+                }
 
-            function showfinal(){
-                //gets values of everything and puts them in the form itself                
-                $("#id_service_rating").val($("input[name='service_rating-choice-2']:checked").val());
+                function showfinal(){
+                    //gets values of everything and puts them in the form itself                
+                    $("#id_service_rating").val($("input[name='service_rating-choice-2']:checked").val());
 
-                $("#id_price_rating").val($("input[name='pricing-choice-2']:checked").val());
-                $("#id_quality_rating").val($("input[name='howdoyoulook-choice-2']:checked").val());          
+                    $("#id_price_rating").val($("input[name='pricing-choice-2']:checked").val());
+                    $("#id_quality_rating").val($("input[name='howdoyoulook-choice-2']:checked").val());          
 
-                $("#id_stylist_feedback").val("texthere");
-                $("#id_salon_feedback").val("texthere");
-                $("#id_service_feedback").val("texthere");
+                    $("#id_stylist_feedback").val("texthere");
+                    $("#id_salon_feedback").val("texthere");
+                    $("#id_service_feedback").val("texthere");
 
-                //NOTE: don't have fields for customer service or timeliness (probably don't need)
-                //$("#id_personality_rating").val("34");
+                    //NOTE: don't have fields for customer service or timeliness (probably don't need)
+                    //$("#id_personality_rating").val("34");
 
-                //alert("new val: " + $("#id_salon").val())
-                
-                //alert("new val2: " + $("#id_personality_rating").val())
+                    //alert("new val: " + $("#id_salon").val())
+                    
+                    //alert("new val2: " + $("#id_personality_rating").val())
 
-                $("#rate_service").hide();
-                $("#complete").show();
-            }
+                    $("#rate_service").hide();
+                    $("#complete").show();
+                }
+            });
         </script>
     </head>
     <body>
