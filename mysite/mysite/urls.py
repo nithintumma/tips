@@ -6,7 +6,7 @@ import settings
 from django.contrib import admin
 admin.autodiscover()
 
-from home import views
+from mysite import views
 from tips import views as views2
 
 urlpatterns = patterns('',
@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^tips/', include('tips.urls')),
 
     # Examples:
-    # url(r'^$', 'mysite.views.home', name='home'),
+    # url(r'^$', 'mysite.views.mysite', name='mysite'),
     # url(r'^mysite/', include('mysite.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -25,5 +25,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^submit/', views2.submit, name = 'submit'),                  
     url(r'^search/', views2.search, name = 'search'),  
-    url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    #url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )
