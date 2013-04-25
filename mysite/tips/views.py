@@ -22,9 +22,12 @@ def submit (request):
         return HttpResponseRedirect('/')  
 
 def search(request):
-	if 'q' in request.GET and request.GET['q']: # If the form has been submitted...
-		q = request.GET['q']
-		results = Reviews.objects.filter(salon__icontains=q)
+	if 'salon' in request.GET or 'stylist' in request.GET or 'service' in request.GET: # If the form has been submitted...
+		q1 = request.GET['salon']
+		q2 = request.GET['service']
+		q3 = request.GET['stylist']
+
+		results = Reviews.objects.filter(salon__icontains=q1, service__icontains = q2, stylist__icontains = q3)
 		labels = {  'atmosphere_rating': ['unpleasant', 'pleasant'],
 					'wait_rating': ['Very fast', 'Average', 'Slow'],
 					'personality_rating': ['unpleasant', 'pleasant'],
@@ -32,9 +35,25 @@ def search(request):
 					'expertise_rating': ['Unexperienced', 'Average', 'Very experienced'],
 					'price_rating': ['Cheap', 'Average', 'Expensive'],
 					'quality_rating': ['Terrible', 'Decent', 'Excellent']
-		}				
+		}	
+		query = ""
+		if q1 != "":
+			query += ("Salon: " + q1 + ", ")
+		else:
+			query += ("Salon: any, ")
+
+		if q2 != "":
+			query += ("Service: " + q2 + ", ")
+		else:
+			query += ("Service: any, ")
+
+		if q3 != "":
+			query += ("Stylist: " + q3)
+		else:
+			query += ("Stylist: any ")
+
 		return render(request, 'tips/search.html', 
-			{'results': results, 'query': q, 'labels': labels})
+			{'results': results, 'query': query, 'labels': labels})
 	elif request.method == 'GET':
 		return render(request, 'tips/search.html', ({}))
 

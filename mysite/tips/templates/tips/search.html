@@ -56,9 +56,13 @@
                     </ul>
                 </div>                
             </div>
-            <div data-role="content">   
+            <div data-role="content">  
+                <h4>Search for one or more of the following fields:</h3> 
                 <form action="/search/" method="get">         
-                    <input type="search" name="q" id="search-basic" placeholder = "Search for a salon to find reviews"/> 
+                    <input type="search" name="salon" id="search-salon" placeholder = "Search for a salon to find reviews"/> 
+                    <input type="search" name="service" id="search-service" placeholder = "Search for a service to find reviews"/> 
+                    <input type="search" name="stylist" id="search-stylist" placeholder = "Search for a stylist to find reviews"/> 
+                    <input type="submit" value="Submit">
                 </form>
                 <div id = "results">
                     <p>You searched for: <strong>{{ query }}</strong></p>
@@ -73,6 +77,21 @@
                                         {{result.service }}: {{result.stylist }} at {{result.salon}}<i size = small>: {%widthratio result.salon_rating|add:result.service_rating|add:result.stylist_rating 3 1%}/5 </i>
                                                                               
                                     </h3>
+                                    <div><i>Click map for directions:</i></div>
+                                    {%if result.salon == "La Flamme" %}
+                                        <a href = "https://maps.google.com/maps?saddr=harvard+square&amp;daddr=La+Flamme+Barber+Shop,+Dunster+Street,+Cambridge,+MA&amp;hl=en&amp;sll=42.036922,-71.683501&amp;sspn=2.770071,4.328613&amp;geocode=FVmPhgIdxqvD-ylf_vJE7XDjiTFOlftv_BKX4w%3BFTCOhgIdr87C-yHPGZ8u0KOUKylDDMPFQnfjiTHPGZ8u0KOUKw&amp;oq=la+flamme&amp;t=h&amp;mra=ls&amp;z=14" target = "_blank">
+                                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Cambridge, MA&amp;zoom=14&amp;size=288x200&amp;markers=21 Dunster Street Cambridge, MA 02138&amp;sensor=false" width="288" height="200" >
+                                        </a>
+                                    {%elif result.salon == "Great Clips" %}
+                                        <a href = "https://maps.google.com/maps?saddr=Harvard+University,+1350+Massachusetts+Ave,+Cambridge,+MA&amp;daddr=great+clips&amp;hl=en&amp;ll=42.36032,-71.101627&amp;spn=0.043064,0.067635&amp;sll=42.372536,-71.091949&amp;sspn=0.043055,0.067635&amp;geocode=FS2UhgId1djC-yHwJyTuXMY3WSmZAX99QnfjiTHwJyTuXMY3WQ%3BFSwmhgIdHV3D-yE8DmPX1E7KBCnlk0e3EXrjiTE8DmPX1E7KBA&amp;t=h&amp;mra=ls&amp;z=14" target = "_blank">
+                                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Cambridge, MA&amp;zoom=12&amp;size=288x200&amp;markers=800 Boylston Street Boston, MA 02199&amp;sensor=false" width="288" height="200" >
+                                        </a>
+                                    {%elif result.salon == "Hair Cuttery" %}
+                                        <a href = "https://maps.google.com/maps?saddr=Harvard+University,+1350+Massachusetts+Ave,+Cambridge,+MA&amp;daddr=hair+cuttery+near+Harvard+Square,+Boston,+MA&amp;hl=en&amp;sll=42.379778,-71.0561&amp;sspn=0.003805,0.004227&amp;geocode=FS2UhgId1djC-yHwJyTuXMY3WSmZAX99QnfjiTHwJyTuXMY3WQ%3BFUuYhgIdI6LD-yEc8VvWxMjuGindKqBT7HDjiTEc8VvWxMjuGg&amp;oq=harvard+university&amp;t=h&amp;mra=ls&amp;z=14" target = "_blank">
+                                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Cambridge, MA&amp;zoom=12&amp;size=288x200&amp;markers=1 Eliot Street Cambridge, MA 02138&amp;sensor=false" width="288" height="200" >
+                                        </a>
+                                    {%endif %}
+
                                     <p>
                                         <ul>
                                             <li>

@@ -48,26 +48,31 @@
                     $("#chosen_salon").html("Changed to salon " + random);
 
                     //shows the next part
-                    $("#select_attendant").css('visibility', 'visible');
+                    //$("#select_attendant").css('visibility', 'visible');
 
                 });
 
-                $("#select_attendant").click(function(e){                                
+                $("#select_salon").change(function(e){                                
                     //shows the next part
-                    $("#select_service").css('visibility', 'visible');
-                });
-                $("#select_service").click(function(e){                                
-                    //shows the next part
-                    $("#next_button").css('visibility', 'visible');
-                });
-                $("#submitSearch").click(function(e){                                
-                    //shows the next part
-                    $("#sample_results").css('visibility', 'visible');
+                    $("#attendant_field").show();
+                    $("#service_field").hide();
+
+                    $("#select_attendant").val("select");
+                    $("#select_service").val("select");
                 });
 
-                //$('div').hide();  // hide everything that isn't #myDiv
+                $("#select_attendant").change(function(e){                                
+                    //shows the next part
+                    $("#service_field").show();
+                });                
+
+                //$('div').hide();  // hide everything that isn't #myDiv                
                 $(".hidden").hide();
                 $("#reviews").show();
+
+                $("#select_salon").show();
+                $("#service_field").hide();
+                $("#service_field").hide();
 
                 });
                                                
@@ -188,7 +193,7 @@
                 </div>
 
 
-                <div data-role="fieldcontain">
+                <div data-role="fieldcontain" class = "hidden" id = "attendant_field">
                     <label for="select_attendant">
                     </label>
                     <select name="" data-theme="b" data-mini="false"  id = "select_attendant">
@@ -206,7 +211,7 @@
                         </option>
                     </select>
                 </div>
-                <div data-role="fieldcontain">
+                <div data-role="fieldcontain" class = "hidden" id = "service_field">
                     <label for="select_service">
                     </label>
                     <select name="" data-theme="b" data-mini="false"  id = "select_service">
