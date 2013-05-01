@@ -1,0 +1,25 @@
+<head>
+	<script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js"></script>
+	<script>
+		var time = 16;		
+		function UpdateTime(){			
+			time = time - 1;
+			if(time == 0)
+			{				
+				timer.innerHTML = time;
+				time = 15
+			}
+			else
+			{
+				timer.innerHTML = time;
+			}
+			setTimeout("UpdateTime()", 1000)
+		}
+	</script>	
+</head>
+<body onload="UpdateTime()">
+
+
+
+<div id = "timer" style = "font-size:400px;"></div>
+</body>

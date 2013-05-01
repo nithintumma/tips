@@ -57,11 +57,20 @@
                     $("#attendant_field").show();
                     $("#service_field").hide();
 
-                    $("#select_attendant").val("select");
+                    $("#select_attendant").val("select");                    
                     $("#select_service").val("select");
+
+                    //refreshes the values of the select boxes
+                    $("#select_attendant").selectmenu("refresh");
+                    $("#select_service").selectmenu("refresh");
+
                 });
 
                 $("#select_attendant").change(function(e){                                
+                    //refreshes the values of the select boxes
+                    $("#select_service").val("select");                    
+                    $("#select_service").selectmenu("refresh");
+
                     //shows the next part
                     $("#service_field").show();
                 });                
@@ -76,70 +85,138 @@
 
                 });
                                                
-
+                function notdefined(value){
+                    return value == undefined
+                }
+                
                 function showsalon(){
                     $("#id_salon").val($("#select_salon").val());
                     $("#id_service").val($("#select_service").val());
                     $("#id_stylist").val($("#select_attendant").val());
-
-
-                    console.log($("#select_salon").val());
-                    console.log($("#select_service").val());
-                    console.log($("#select_attendant").val());
 
                     $("#reviews").hide();
                     $("#rate_salon").show();
                 }
 
                 function showperson(){
+
                     var salon_rating = $("input[name='salon_rating-choice-2']:checked").val();
                     var atmosphere = $("input[name='atmosphere-choice-2']:checked").val();
                     var waittime = $("input[name='waittime-choice-2']:checked").val();
-                    
-                    console.log("atmosphere");
-                    console.log(atmosphere);
-                    console.log("waittime");
-                    console.log(waittime);
-                    console.log("score");
 
-                    $("#id_salon_rating").val(salon_rating);
-                    $("#id_wait_rating").val(waittime);
-                    $("#id_atmosphere_rating").val(atmosphere);
+                    var error = ""
+                    if(notdefined(salon_rating))
+                    {
+                        error += "Please provide a salon rating. \n"
+                    }
+                    if(notdefined(atmosphere))
+                    {
+                        error += "Please provide an atmosphere rating. \n"
+                    }
+                    if(notdefined(waittime))
+                    {
+                        error += "Please provide a wait time rating. \n"
+                    }
 
-                    $("#rate_salon").hide();
-                    $("#rate_person").show();
+                    if(error == "")
+                    {
+                        $("#id_salon_rating").val(salon_rating);
+                        $("#id_wait_rating").val(waittime);
+                        $("#id_atmosphere_rating").val(atmosphere);
+
+                        $("#rate_salon").hide();
+                        $("#rate_person").show();
+                    }
+                    else
+                    {
+                        alert("Oops! You forgot to fill out some fields. \n" + error)
+                    }
                 }
 
                 function showservice(){
-                    $("#id_stylist_rating").val($("input[name='stylist_rating-choice-2']:checked").val());
-                    $("#id_personality_rating").val($("input[name='personality-choice-2']:checked").val());
-                    $("#id_talking_rating").val($("input[name='talking-choice-2']:checked").val());
-                    $("#id_expertise_rating").val($("input[name='expertise-choice-2']:checked").val());
+                    var stylist_rating = $("input[name='stylist_rating-choice-2']:checked").val();
+                    var personality = $("input[name='personality-choice-2']:checked").val();
+                    var talking = $("input[name='talking-choice-2']:checked").val();
+                    var expertise = $("input[name='expertise-choice-2']:checked").val();
 
-                    $("#rate_person").hide();
-                    $("#rate_service").show();
+                    var error = ""
+                    if(notdefined(stylist_rating))
+                    {
+                        error += "Please provide a stylist rating. \n"
+                    }
+                    if(notdefined(personality))
+                    {
+                        error += "Please provide a personality rating. \n"
+                    }
+                    if(notdefined(talking))
+                    {
+                        error += "Please provide a talkativity rating. \n"
+                    }
+                    if(notdefined(expertise))
+                    {
+                        error += "Please provide an expertise rating. \n"
+                    }
+
+                    if(error == "")
+                    {
+                        $("#id_stylist_rating").val(stylist_rating);
+                        $("#id_personality_rating").val(personality);
+                        $("#id_talking_rating").val(talking);
+                        $("#id_expertise_rating").val(expertise);
+
+                        $("#rate_person").hide();
+                        $("#rate_service").show();
+                    }
+                    else
+                    {
+                        alert("Oops! You forgot to fill out some fields. \n" + error)
+                    }
                 }
 
                 function showfinal(){
                     //gets values of everything and puts them in the form itself                
-                    $("#id_service_rating").val($("input[name='service_rating-choice-2']:checked").val());
+                    var service_rating = $("input[name='service_rating-choice-2']:checked").val();
+                    var price = $("input[name='pricing-choice-2']:checked").val();
+                    var quality = $("input[name='howdoyoulook-choice-2']:checked").val();          
+                    var timeliness = $("input[name='timeliness-choice-2']:checked").val();
 
-                    $("#id_price_rating").val($("input[name='pricing-choice-2']:checked").val());
-                    $("#id_quality_rating").val($("input[name='howdoyoulook-choice-2']:checked").val());          
-
-                    $("#id_stylist_feedback").val("texthere");
-                    $("#id_salon_feedback").val("texthere");
-                    $("#id_service_feedback").val("texthere");
-
-                    //NOTE: don't have fields for customer service or timeliness (probably don't need)
-                    //$("#id_personality_rating").val("34");
-
-                    //alert("new val: " + $("#id_salon").val())
+                    var error = ""
+                    if(notdefined(service_rating))
+                    {
+                        error += "Please provide a service rating. \n"
+                    }
+                    if(notdefined(price))
+                    {
+                        error += "Please provide a price rating. \n"
+                    }
+                    if(notdefined(quality))
+                    {
+                        error += "Please provide a quality rating. \n"
+                    }
+                    if(notdefined(timeliness))
+                    {
+                        error += "Please provide a timeliness rating. \n"
+                    }
                     
-                    //alert("new val2: " + $("#id_personality_rating").val())
+                    if(error == "")
+                    {
+                        $("#id_service_rating").val(service_rating);
+                        $("#id_price_rating").val(price);
+                        $("#id_quality_rating").val(quality);          
 
-                    $("#rate_service").hide();
-                    $("#complete").show();
+                        $("#id_stylist_feedback").val("texthere");
+                        $("#id_salon_feedback").val("texthere");
+                        $("#id_service_feedback").val("texthere");                    
+
+                        $("#rate_service").hide();
+                        $("#complete").show();
+                    }
+                    else
+                    {
+                        alert("Oops! You forgot to fill out some fields. \n" + error);
+                        event.preventDefault(); 
+                        return false;
+                    }
                 }
                 console.log("end");            
         </script>
@@ -481,7 +558,7 @@
                 </div>                      
 
 
-                <form action="/submit/" method="post" onsubmit = "showfinal()">
+                <form action="/submit/" method="post" >
                     {% csrf_token %}
                     <table style="display:none">
                         <tr><th><label for="id_stylist">Stylist:</label></th><td><input id="id_stylist" maxlength="200" name="stylist" type="text" /></td></tr>
@@ -501,7 +578,7 @@
                         <tr><th><label for="id_stylist_feedback">Stylist feedback:</label></th><td><input id="id_stylist_feedback" maxlength="2000" name="stylist_feedback" type="text" /></td></tr>
                         <tr><th><label for="id_service_feedback">Service feedback:</label></th><td><input id="id_service_feedback" maxlength="2000" name="service_feedback" type="text" /></td></tr>
                     </table>
-                    <input type="submit" value="Submit" data-role="button" data-theme="a" data-icon="check" data-iconpos="right" />
+                    <input type="submit" value="Submit" data-role="button" data-theme="a" data-icon="check" data-iconpos="right" onclick = "showfinal()"/>
 
 
                 </a>
